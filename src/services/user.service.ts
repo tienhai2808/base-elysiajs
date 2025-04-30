@@ -3,16 +3,23 @@ import { db } from "../lib/db.lib";
 import { User, users } from "../models/user.model";
 import { omit } from "../utils/omit.util";
 import { eq, ilike, or } from "drizzle-orm";
+import { redis } from "../lib/redis";
 
 export type SafeUserRead = Omit<User, "password" | "createdAt" | "updatedAt">;
 
 export const getAllUserService = async (): Promise<{
   users: SafeUserRead[];
 }> => {
+  const cachedUsers = await redis.get("base-elysiajs-user");
+  if (cachedUsers) {
+    return { users: JSON.parse(cachedUsers) };
+  }
   const getUsers = await db.select().from(users);
   const safeUsers: SafeUserRead[] = getUsers.map((user) =>
     omit(user, ["password", "createdAt", "updatedAt"])
   );
+
+  await redis.setex("base-elysiajs-user", 3600, JSON.stringify(safeUsers));
 
   return { users: safeUsers };
 };

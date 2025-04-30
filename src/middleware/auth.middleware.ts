@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { db } from "../lib/db.lib";
-import { NewUser, User, users } from "../models/user.model";
+import { User, users } from "../models/user.model";
 import { config } from "../config/app.config";
 import { Context } from "elysia";
 import { eq } from "drizzle-orm";

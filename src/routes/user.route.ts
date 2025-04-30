@@ -8,14 +8,16 @@ import {
 } from "../controllers/user.controller";
 
 const userRoutes = new Elysia({ prefix: "/users" })
-  .onBeforeHandle(authMiddleware)
+  // .onBeforeHandle(authMiddleware)
   .get("", getAllUserController, {
+    beforeHandle: authMiddleware,
     detail: {
       tags: ["User"],
       summary: "Get all users"
     }
   })
   .patch("/:id", updateUserController, {
+    beforeHandle: authMiddleware,
     body: UpdateUserDto,
     detail: { 
       tags: ["User"], 
