@@ -13,6 +13,11 @@ export const RegisterDto = t.Object({
   password: t.String({ minLength: 6 }),
 })
 
+export const TestDto = t.Object({
+  request: t.String()
+})
+
+export type TestDtoType = typeof TestDto.static;
 export type LoginDtoType = typeof LoginDto.static;
 export type RegisterDtoType = typeof RegisterDto.static;
 

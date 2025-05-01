@@ -37,12 +37,16 @@ The project uses Drizzle ORM for database management. To set up your database:
    ```bash
    bun run migrate
    ```
+3. Run push to database:
+   ```bash
+   bun run push
+   ```
 
 ## Running the Application
 
 Development mode:
 ```bash
-bun run dev
+bun dev
 ```
 
 Production mode:

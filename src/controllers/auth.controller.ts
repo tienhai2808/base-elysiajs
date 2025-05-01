@@ -1,3 +1,4 @@
+import { TestDtoType } from './../dto/auth.dto';
 import { loginService, registerService } from "../services/auth.service";
 import { LoginDtoType, RegisterDtoType } from "../dto/auth.dto";
 import {
@@ -6,6 +7,12 @@ import {
 } from "../utils/response.util";
 import { generateJWT } from "../utils/auth.util";
 import { Context } from "elysia";
+
+export const testController = async ({body, set}: { body: TestDtoType, set: Context['set'] }) => {
+  console.log(`Nội dung request gửi đến: ${body.request}`);
+  set.status = 200;
+  return { status: 200, message: "Hello world" }
+}
 
 export const loginController = async ({
   body,
